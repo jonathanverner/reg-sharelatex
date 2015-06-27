@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from bottle import route, error, run, template, request, response, abort
-import simplepam, getent
+import simplepam, getent, os, sys
 
 @route('/user/<name>/authenticate', method='POST')
 def authenticate(name):
@@ -37,5 +37,4 @@ if __name__ == "__main__":
         port=3023
     run(host=address, port=port, umask=0, reloader=False)
 
-
-
+    os.remove('reg-service.pid')
