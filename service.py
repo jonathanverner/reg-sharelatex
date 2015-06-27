@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from bottle import route, error, run, template, request, response, abort
 import simplepam, getent
 
@@ -25,5 +26,16 @@ def error404(error):
 def error404(error):
     return ""
 
+if __name__ == "__main__":
+    open('reg-service.pid','w').write(str(os.getpid()))
 
-run(host='localhost', port=3023)
+    if len(sys.argv) == 3:
+        address = sys.argv[1]
+        port = int(sys.argv[2])
+    else:
+        address = "localhost"
+        port=3023
+    run(host=address, port=port, umask=0, reloader=False)
+
+
+
