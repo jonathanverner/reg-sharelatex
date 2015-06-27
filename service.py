@@ -4,18 +4,25 @@ import simplepam, getent, os, sys
 
 @route('/user/<name>/authenticate', method='POST')
 def authenticate(name):
+    print("Authenticating",name, end=" ")
     data = request.json
     if not data:
+        print("FAIL (no password)")
         abort(401, "Unable to authenticate: no password given.")
     elif simplepam.authenticate(name, request.json['password']):
+        print("OK")
         return None
+    print("FAIL (wrong password)")
     abort(401, "Unable to authenticate.")
 
 @route('/user/<name>', method='GET')
 def user_info(name):
+    print("Getting User details for",name )
     user = getent.passwd(name);
     if user:
+        print(dict(user))
         return dict(user)
+    print("User not found")
     abort(404, "User not found.");
 
 @error(404)
