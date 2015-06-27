@@ -42,6 +42,6 @@ if __name__ == "__main__":
     else:
         address = "localhost"
         port=3023
-    run(host=address, port=port, umask=0, reloader=False)
+    run(host=address, port=port, reloader=False, server='cherrypy')
 
     os.remove('reg-service.pid')
